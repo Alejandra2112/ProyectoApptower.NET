@@ -1,0 +1,77 @@
+﻿@model Apptower.Models.Propietario
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Eliminar Propietario</h1>
+
+<h3>¿Estas seguro que deseas eliminar el registro?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Tipo de Documento
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TipoDocumentoPropietario)
+        </dd>
+        <dt class="col-sm-2">
+            Documento
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumeroDocumentoPropietario)
+        </dd>
+        <dt class="col-sm-2">
+            Nombre
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NombrePropietario)
+        </dd>
+        <dt class="col-sm-2">
+            Apellido
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ApellidoPropietario)
+        </dd>
+        <dt class="col-sm-2">
+            Edad
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                if (Model.FechaNacimientoPropietario != null)
+                {
+                    var today = DateTime.Today;
+                    var age = today.Year - Model.FechaNacimientoPropietario.Year;
+                    if (Model.FechaNacimientoPropietario.Date > today.AddYears(-age)) age--;
+                    @age
+                }
+
+            }
+        </dd>
+        <dt class="col-sm-2">
+            Correo
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CorreoPropietario)
+        </dd>
+        <dt class="col-sm-2">
+            Teléfono
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TelefonoPropietario)
+        </dd>
+        <dt class="col-sm-2">
+            Estado
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EstadoPropietario)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdPropietario" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index">Volver a la lista</a>
+    </form>
+</div>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Apptower.Models.Vehiculo>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["IrACrear"] = "Agregar nuevo vehiculo";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="row align-items-center my-4">
+                <div class="col">
+                    <h2 class="h3 mb-0 page-title">Vehiculos</h2>
+                </div>
+                <form class="form-inline" asp-action="Index" method="get">
+                    <div class="form-row">
+                        <div class="form-group col-auto">
+                            <label for="search" class="sr-only">Buscar</label>
+                            <input type="text" class="form-control" id="search" name="buscar" value="" placeholder="Buscar">
+                        </div>
+                    </div>
+                </form>
+                <div class="col-auto">
+                    <a asp-action="Create" type="button" class="btn btn-success">
+                        <span></span>@ViewData["IrACrear"]
+                    </a>
+                </div>
+            </div>
+        </div> <!-- /.col-12 -->
+    </div> <!-- /.row -->
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3">
+            <div class="card shadow mb-4">
+
+                <a style="text-decoration: none; color: inherit;" asp-action="Details" asp-route-id="@item.IdVehiculo">
+
+                    <div class="card-body text-center">
+                        <div class="card-text my-2">
+                            <strong class="card-title my-0">@item.Placa</strong>
+                            <p class="text-muted">@item.NombrePropietarioVehiculo</p>
+                            <p class="mb-0"> @(item.TipoUsuarioVehiculo) </p>
+                        </div>
+                    </div> <!-- ./card-text -->
+                </a>
+                <div class="card-footer">
+                    <div class="row align-items-center justify-content-between">
+
+                        @*Estado del espacio*@
+
+                        <div class="col-auto">
+                            <div class="file-action">
+                                <button type="button" class="btn btn-link dropdown-toggle more-vertical p-0 text-muted mx-auto"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="text-muted sr-only">Action</span>
+                                </button>
+                                <div class="dropdown-menu m-2">
+
+                                    <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.IdVehiculo">
+                                        <i class="fe fe-edit fe-12 mr-4"></i>Editar
+                                    </a>
+                                    <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.IdVehiculo">
+                                        <i class="fe fe-delete fe-12 mr-4"></i>Eliminar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- /.card-footer -->
+            </div>
+        </div>
+    }
+</div>

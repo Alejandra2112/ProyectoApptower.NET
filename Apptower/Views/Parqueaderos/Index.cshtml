@@ -1,0 +1,209 @@
+﻿@model IEnumerable<Apptower.Models.Parqueadero>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["IrACrear"] = "Agregar parqueaderos";
+}
+
+<div class="file-container border-top">
+    <div class="file-panel mt-4">
+        <div class="row align-items-center my-4">
+
+
+
+            <div class="col">
+                <h2 class="h3 mb-0 page-title">Parqueaderos</h2>
+            </div>
+
+            <form class="form-inline" asp-action="Index" method="get">
+                <div class="form-row">
+                    <div class="form-group col-auto">
+                        <label for="search" class="sr-only">Buscar</label>
+                        <input type="text" class="form-control" id="search" name="buscar" value="" placeholder="Buscar">
+                    </div>
+                </div>
+            </form>
+
+            <div class="col-auto">
+                <a asp-action="Create" type="button" class="btn btn-primary">
+                    <span></span>@ViewData["IrACrear"]
+                </a>
+            </div>
+
+        </div>
+        <div class="row my-4">
+
+
+            @foreach (var item in Model)
+            {
+
+                <div class="col-md-3">
+                    <div class="card shadow mb-4">
+
+
+                        <div class="card-body text-center">
+                            <div class="avatar avatar-lg mt-4">
+                                <i class="bi @(item.TipoParqueadero == "RESIDENTES"? "bi-car": item.TipoParqueadero == "VISITANTES"? "bi-smile": "" )  bi-24"></i>
+                            </div>
+                            <div class="card-text my-2">
+                                <strong class="card-title my-0">@item.NombreParqueadero</strong>
+                                <p class="text-muted">@item.TipoParqueadero</p>
+                                <p class="mb-0">
+                                    @(item.TipoParqueadero == "RESIDENTES" ?
+                                        $"Espacio {string.Join(", ", item.ParqueaderosDeEspacios.Select(espacio => espacio.IdEspacio))}" : "")
+                                </p>
+                                <p class="mb-0">@(item.TipoParqueadero == "VISITANTE" ? $"Reservado" : "")</p>
+                            </div>
+                        </div> <!-- ./card-text -->
+
+                        <div class="card-footer">
+                            <div class="row align-items-center justify-content-between">
+
+                                @*Estado del espacio*@
+
+                                <div class="col-auto">
+                                    <small>
+                                        <span class="dot dot-lg @(item.EstadoParqueadero == "ACTIVO"? "bg-success" : item.EstadoParqueadero == "INACTIVO"? "bg-danger" : "bg-danger") mr-1"></span> @item.EstadoParqueadero
+                                    </small>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="file-action">
+                                        <button type="button" class="btn btn-link dropdown-toggle more-vertical p-0 text-muted mx-auto"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted sr-only">Action</span>
+                                        </button>
+                                        <div class="dropdown-menu m-2">
+
+                                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.IdParqueadero">
+                                                <i class="fe fe-edit fe-12 mr-4"></i>Editar
+                                            </a>
+                                            <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.IdParqueadero">
+                                                <i class="fe fe-delete fe-12 mr-4"></i>Eliminar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- /.card-footer -->
+                    </div>
+                </div>
+
+
+                <div class="info-panel">
+                    <div class="info-content p-3 border-left">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-fill">
+                                <span class="circle circle-sm bg-white mr-2">
+                                    <span class="fe fe-box fe-12 text-primary"></span>
+                                </span>
+                                <span class="h6">@item.NombreParqueadero</span>
+                            </div>
+                            <span class="btn close-info">
+                                <i class="fe fe-x"></i>
+                            </span>
+                        </div>
+                        <ul class="nav nav-tabs nav-fill mb-3" id="file-detail" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="tab-detail" data-toggle="tab" href="#detail" role="tab" aria-controls="detail" aria-selected="true">Detalles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tab-activity" data-toggle="tab" href="#activity" role="tab" aria-controls="activity" aria-selected="false">Reservas</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="file-tabs">
+                            <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="tab-detail">
+                                @*<img src="./assets/products/p4.jpg" alt="..." class="img-fluid rounded">*@                                <ul class="avatars-list my-4 mx-0">
+                                    @*
+                                <li>
+                                <a href="#!" class="avatar avatar-sm">
+                                <img alt="..." class="avatar-img rounded-circle" src="./assets/avatars/face-2.jpg">
+                                </a>
+                                </li>
+                                *@
+                                    @*
+                                <li>
+                                <a href="#!" class="avatar avatar-sm">
+                                <img alt="..." class="avatar-img rounded-circle" src="./assets/avatars/face-4.jpg">
+                                </a>
+                                </li>*@
+                                </ul>
+                                <dl class="row my-4 small">
+                                    @if (item.TipoParqueadero == "RESIDENTES")
+                                    {
+                                        <dt class="col-6 text-muted">
+                                            Apartamento
+                                        </dt>
+
+                                        foreach (var espacio in item.ParqueaderosDeEspacios)
+                                        {
+                                            <br />
+                                            <dd class="col-6">@espacio.IdEspacio</dd>
+                                        }
+                                    }
+                                    <dt class="col-6 text-muted">Tipo</dt>
+                                    <dd class="col-6">@item.TipoParqueadero</dd>
+                                    <dt class="col-6 text-muted">Estado</dt>
+                                    <dd class="col-6">@item.EstadoParqueadero</dd>
+                                    @*<dt class="col-6 text-muted">Location</dt>
+                                <dd class="col-6"><a href="#" class="text-muted">Design File</a></dd>
+                                <dt class="col-6 text-muted">Created at</dt>
+                                <dd class="col-6">Aug 20, 2020</dd>
+                                <dt class="col-6 text-muted">Last update</dt>
+                                <dd class="col-6">Aug 21, 2020</dd>*@
+                                </dl>
+                            </div> <!-- .tab-pane -->
+                            <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="tab-activity">
+                                <div class="timeline">
+
+                                    <div class="pb-3 timeline-item item-success">
+                                        <div class="pl-5 small">
+                                            <div class="mb-2"><strong>Reservas Pendiente </strong><span class="text-muted small mx-1">reservado por </span><strong> Emmanuel tabares </strong></div>
+                                            <div class="card d-inline-flex mb-2">
+                                                @*                                                <div class="card-body bg-light py-2 px-3"> Estado de reserva </div>
+                                            *@
+                                            </div>
+                                            <span class="badge badge-pill badge-dark">19 Sep</span>
+                                        </div>
+                                    </div>
+                                    <div class="pb-3 timeline-item item-danger">
+                                        <div class="pl-5 small">
+                                            <div class="mb-2"><strong>Reservas Cancelada </strong><span class="text-muted small mx-1">reservado por </span><strong> Daniel rivera </strong></div>
+                                            <div class="card d-inline-flex mb-2">
+                                                @*                                                <div class="card-body bg-light py-2 px-3"> Estado de reserva </div>
+                                            *@
+                                            </div>
+                                            <span class="badge badge-pill badge-dark">22 sept</span>
+                                        </div>
+                                    </div>
+
+                                </div> <!-- / .timeline -->
+                            </div> <!-- .tab-pane -->
+                        </div> <!-- .tab-content -->
+                    </div>
+                </div>
+
+
+            }
+
+
+        </div> <!-- .row -->
+    </div> <!-- .file-panel -->
+</div> <!-- .file-container -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var cards = document.querySelectorAll('.card');
+
+        cards.forEach(function (card) {
+            card.addEventListener('click', function () {
+                var id = this.getAttribute('data-id');
+                var infoPanel = document.querySelector('.parqueadero-info-' + id);
+
+                // Resto del código...
+            });
+        });
+
+        // Resto del código...
+    });
+</script>

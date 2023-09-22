@@ -1,0 +1,49 @@
+﻿@model Apptower.Models.Vehiculo
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h4>Crear Vehiculo</h4>
+<hr />
+<div class="row justify-content-sm-center">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Placa" class="control-label"></label>
+                <input asp-for="Placa" class="form-control" />
+                <span asp-validation-for="Placa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoUsuarioVehiculo" class="control-label">Ingrese su tipo de usuario</label>
+                <select asp-for="TipoUsuarioVehiculo" class="form-control">
+                    <option>Propietario</option>
+                    <option>Visitante</option>
+                    <option>Administrador</option>
+                </select>
+                <span asp-validation-for="TipoUsuarioVehiculo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombrePropietarioVehiculo" class="control-label">Nombre</label>
+                <select asp-for="NombrePropietarioVehiculo" class="form-control" asp-items="@ViewBag.IdUsuario"></select>
+                <span asp-validation-for="NombrePropietarioVehiculo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-outline-success" />
+                <a asp-action="Index" class="btn btn-light">Cancelar</a>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

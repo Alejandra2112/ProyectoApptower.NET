@@ -1,0 +1,108 @@
+﻿@model Apptower.Models.Residente
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Crear Registro</h1>
+
+<h4>Residente</h4>
+<hr />
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+        <div class="row">
+                
+            <div class="col-md-6">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group mb-3">
+
+                        <label asp-for="TipoDocumentoResidente" class="control-label">Tipo de documento</label>
+                        <select asp-for="TipoDocumentoResidente" class="form-control">
+                            <option disabled selected>Seleccione una opcion</option>
+                            <option value="CC">CC</option>
+                            <option value="CE">CE</option>
+                            <option value="TI">TI</option>
+                        </select>
+                        <span asp-validation-for="TipoDocumentoResidente" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NumeroDocumentoResidente" class="control-label">Numero del documento</label>
+                        <input asp-for="NumeroDocumentoResidente" class="form-control" />
+                        <span asp-validation-for="NumeroDocumentoResidente" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NombreResidente" class="control-label">Nombre</label>
+                        <input asp-for="NombreResidente" class="form-control" />
+                        <span asp-validation-for="NombreResidente" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ApellidoResidente" class="control-label">Apellido</label>
+                        <input asp-for="ApellidoResidente" class="form-control" />
+                        <span asp-validation-for="ApellidoResidente" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="FechaNacimientoResidente" class="control-label">Fecha de nacimiento</label>
+                        <input asp-for="FechaNacimientoResidente" class="form-control" />
+                        <span asp-validation-for="FechaNacimientoResidente" class="text-danger"></span>
+                    </div>
+            </div> <!-- /.col -->
+            <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CorreoResidente" class="control-label">Correo</label>
+                        <input asp-for="CorreoResidente" class="form-control" />
+                        <span asp-validation-for="CorreoResidente" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TelefonoResidente" class="control-label">Telefono</label>
+                        <input asp-for="TelefonoResidente" class="form-control" />
+                        <span asp-validation-for="TelefonoResidente" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdEspacio" class="control-label">Identificador del espacio</label>
+                        <select asp-for="IdEspacio" class="form-control" asp-items="ViewBag.IdEspacio"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FechaInicioResidencia" class="control-label">Fecha de inicio de residencia</label>
+                        <input asp-for="FechaInicioResidencia" class="form-control" />
+                        <span asp-validation-for="FechaInicioResidencia" class="text-danger"></span>
+                    </div>
+                    <div class="form-group d-none">
+                        <label asp-for="FechaFinResidencia" class="control-label"></label>
+                        <input asp-for="FechaFinResidencia" value="" class="form-control" />
+                        <span asp-validation-for="FechaFinResidencia" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TipoResidente" class="control-label">Tipo de residente</label>
+                        <select asp-for="TipoResidente" class="form-control">
+                            <option disabled selected>Seleccione una opcion</option>
+                            <option value="Arrendatario">Arrendatario</option>
+                            <option value="Propietario">Propietario</option>
+                        </select>
+                        <span asp-validation-for="TipoResidente" class="text-danger"></span>
+                    </div>
+                    <div class="form-group d-none">
+                        <label asp-for="ResidenciaActual" class="control-label"></label>
+                        <input asp-for="ResidenciaActual" value="true" class="form-control" />
+                        <span asp-validation-for="ResidenciaActual" class="text-danger"></span>
+                    </div>
+                    <div class="form-group d-none">
+                        <label asp-for="EstadoResidente" class="control-label"></label>
+                        <input asp-for="EstadoResidente" value="Activo" class="form-control" />
+                        <span asp-validation-for="EstadoResidente" class="text-danger"></span>
+                    </div>
+            </div>
+                <div class="form-group">
+                    <input type="submit" value="Crear" class="btn btn-primary" /> |
+                    <a class="btn btn-danger" asp-action="Index">Cancelar</a>
+                </div>
+        </div>
+        </form>
+    </div>
+</div> <!-- / .card -->
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

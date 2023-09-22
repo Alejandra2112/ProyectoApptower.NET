@@ -1,0 +1,130 @@
+﻿@model Apptower.Models.Parqueadero;
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Editar espacio";
+    ViewData["Boton"] = "Editar parqueadero";
+}
+
+
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11">
+            <h2 class="page-title">@ViewData["Title"]</h2>
+            <div class="card shadow mb-4">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="modal-body p-4">
+
+                            <form asp-action="Edit">
+
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="IdParqueadero" />
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="TipoParqueadero">Tipo parqueadero</label>
+                                    <select asp-for="TipoParqueadero" class="form-control">
+                                        <option value="RESIDENTES">RESIDENTES</option>
+                                        <option value="VISITANTES">VISITANTES</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="NombreParqueadero">Nombre parqueadero</label>
+                                    <input type="text" asp-for="NombreParqueadero" class="form-control" required>
+                                    <span asp-validation-for="NombreParqueadero"></span>
+                                </div>
+
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="EstadoParqueadero">Estado</label>
+                                    <select asp-for="EstadoParqueadero" class="form-control">
+                                        <option value="ACTIVO">ACTIVO</option>
+                                        <option value="INACTIVO">INACTIVO</option>
+                                    </select>
+                                </div>
+
+                                <input type="submit" class="btn mb-2 btn-primary btn-block" value="@ViewData["Boton"] ">
+                                <span class="fe mr-2"></span>
+                                </input>
+                                <a asp-controller="Parqueaderos" asp-action="Index">
+                                    <button id="regresar" type="button"
+                                            class="btn mb-2 btn-light btn-block">
+                                        <span class="fe mr-2"></span>Regresar
+                                    </button>
+                                </a>
+
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div> <!-- / .card -->
+                @*
+                @section Script{
+
+                @{ <partial name="_Valo "> }
+                }*@
+
+                @section Scripts {
+                    @{
+                        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                    }
+                }
+
+
+
+
+
+
+
+@*@model Apptower.Models.Parqueadero
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Parqueadero</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdParqueadero" />
+            <div class="form-group">
+                <label asp-for="NombreParqueadero" class="control-label"></label>
+                <input asp-for="NombreParqueadero" class="form-control" />
+                <span asp-validation-for="NombreParqueadero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoParqueadero" class="control-label"></label>
+                <input asp-for="TipoParqueadero" class="form-control" />
+                <span asp-validation-for="TipoParqueadero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstadoParqueadero" class="control-label"></label>
+                <input asp-for="EstadoParqueadero" class="form-control" />
+                <span asp-validation-for="EstadoParqueadero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+*@

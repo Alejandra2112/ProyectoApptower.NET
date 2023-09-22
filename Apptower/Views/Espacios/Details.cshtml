@@ -1,0 +1,613 @@
+﻿@model Apptower.Models.Espacio
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewData["BotonEditar"] = "Editar";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+            <div class="row align-items-center mb-4">
+                <div class="col" style="display: flex;   justify-content: space-around;">
+
+                    <h2 class="h5 page-title"><small class="text-muted text-uppercase">@Model.TipoEspacio</small><br />@Model.NombreEspacio</h2>
+                    <h2 class="h5 page-title"><small class="text-muted text-uppercase">ESTADO</small><br />@(Model.EstadoEspacio)</h2>
+                    <h2 class="h5 page-title"><small class="text-muted text-uppercase">@(Model.Area != null ? $"Area" : "")</small><br />@(Model.Area != null ? $"{Model.Area + "m²"}" : "")</h2>
+                    <h2 class="h5 page-title"><small class="text-muted text-uppercase">@(Model.Capacidad != null ? $"Capacidad" : "")</small><br />@(Model.Capacidad != null ? $"{Model.Capacidad + "personas"}" : "")</h2>
+
+
+                </div>
+
+
+                <div class="btn-group">
+                    <a asp-action="Index" class="mx-1">
+                        <button type="button" class="btn btn-secondary">Regresar</button>
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@Model.IdEspacio" class="mx-1">
+                        <button type="button" class="btn btn-primary">@ViewData["BotonEditar"]</button>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <div class="row mb-5" style="display: flex;   justify-content: space-between;">
+
+
+
+                        @if (Model.TipoEspacio == "APARTAMENTO")
+                        {
+                            <div class="col-md-7">
+
+                                @*{{!-- inicio div de propietarios --}}*@
+
+
+                                <div style="display: flex; justify-content: space-between;">
+                                    <p class="mb-4">
+                                        
+                                        <strong>PROPIETARIOS</strong>
+
+                                        @if (Model.PropietariosPorEspacios.Count() == 0)
+                                        {
+                                            <br />
+                                            <div class="col-12 mb-4">
+                                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                    No hay prpopietarios asociados a este apartamento para agregar uno <a asp-controller="PropietariosPorEspacios" asp-action="Create">Click Aqui </a> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div> <!-- /. col -->
+                                        }
+                                        else
+                                        {
+                                            @foreach (var propietario in Model.PropietariosPorEspacios)
+                                            {
+                                                <a style="text-decoration: none; color: inherit;" asp-controller="Propietarios" asp-action="Details" asp-route-id="@propietario.IdPropietario">
+                                                    <br> @propietario.IdPropietario
+                                                </a>
+                                                <a style="text-decoration: none; color: inherit; margin-left: 20px;" asp-controller="PropietariosPorEspacios" asp-action="Delete" asp-route-id="@propietario.IdPropietariosPorEspacio">
+                                                    <i class="fe fe-delete fe-12 mr-4"></i>
+                                                </a>
+
+                                            }
+                                        }
+                                    </p>
+
+                                    <div class="file-action">
+                                        <button type="button" class="btn btn-link dropdown-toggle more-vertical p-0 text-muted mx-auto"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted sr-only">Action</span>
+                                        </button>
+                                        <div class="dropdown-menu m-2">
+                                            <a class="dropdown-item" asp-controller="PropietariosPorEspacios" asp-action="Create">
+                                                <i class="fe fe-alert-triangle fe-12 mr-4"></i>Agregar nuevo propietario
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Propietarios" asp-action="Index">
+                                                <i class="fe fe-eye fe-12 mr-4"></i>Ver propietarios
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*{{!-- Fin div de propietarios --}} *@
+
+                                @* {{!-- inicio div de visitantes --}}*@
+
+                                <div style="display: flex; justify-content: space-between;">
+                                    <p class="mb-4">
+                                        <strong>VISITANTES</strong>
+
+                                        @if (Model.VisitantesPorEspacios.Count() == 0)
+                                        {
+                                            <br />
+                                            <div class="col-12 mb-4">
+                                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                    No hay visitantes asociados a este apartamento para agregar uno <a asp-controller="VisitantesPorEspacios" asp-action="Create">Click Aqui </a> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div> <!-- /. col -->
+                                        }
+                                        else
+                                        {
+                                            @foreach (var visitantes in Model.VisitantesPorEspacios)
+                                            {
+                                                <a style="text-decoration: none; color: inherit;" asp-controller="Visitantes" asp-action="Details" asp-route-id="@visitantes.IdVisitante">
+                                                    <br> @visitantes.IdVisitantePorEspacio
+                                            </a>
+                                                <a style="text-decoration: none; color: inherit; margin-left: 20px;" asp-controller="VisitantesPorEspacios" asp-action="Delete" asp-route-id="@visitantes.IdVisitantePorEspacio">
+                                                <i class="fe fe-delete fe-12 mr-4"></i>
+                                            </a>
+                                            }
+                                        }
+                                    </p>
+
+                                    <div class="file-action">
+                                        <button type="button" class="btn btn-link dropdown-toggle more-vertical p-0 text-muted mx-auto"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted sr-only">Action</span>
+                                        </button>
+                                        <div class="dropdown-menu m-2">
+                                            <a class="dropdown-item" asp-controller="VisitantesPorEspacios" asp-action="Create">
+                                                <i class="fe fe-alert-triangle fe-12 mr-4"></i>Agregar nuevo visitante
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Visitantes" asp-action="Index">
+                                                <i class="fe fe-eye fe-12 mr-4"></i>Ver visitante
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*{{!-- Fin div de visitantes --}}*@
+
+                            </div>
+
+                            <div class="col-md-5">
+
+                                @*{{!-- inicio div de Residentes --}}*@
+
+                                <div style="display: flex; justify-content: space-between;">
+                                    <p class="mb-4">
+                                        <strong>RESIDENTES</strong>
+
+                                        @if (Model.Residentes.Count() == 0)
+                                        {
+                                            <br />
+                                            <div class="col-12 mb-4">
+                                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                    No hay residentes asociados a este apartamento para agregar uno <a asp-controller="Residentes" asp-action="Create">Click Aqui </a> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div> <!-- /. col -->
+                                        }
+                                        else
+                                        {
+                                            @foreach (var resistente in Model.Residentes)
+                                            {
+                                            <a style="text-decoration: none; color: inherit;" asp-controller="Residentes" asp-action="Details" asp-route-id="@resistente.IdResidente">
+                                                <br> @resistente.NombreResidente @resistente.ApellidoResidente
+                                            </a>
+
+                                            <a style="text-decoration: none; color: inherit; margin-left: 10px;" asp-controller="Residentes" asp-action="Edit" asp-route-id="@resistente.IdResidente">
+                                                <i class="fe fe-delete fe-12 mr-4"></i>
+                                            </a>
+                                            }
+                                        }
+                                    </p>
+
+                                    <div class="file-action">
+                                        <button type="button" class="btn btn-link dropdown-toggle more-vertical p-0 text-muted mx-auto"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted sr-only">Action</span>
+                                        </button>
+                                        <div class="dropdown-menu m-2">
+                                            <a class="dropdown-item" asp-controller="Residentes" asp-action="Create">
+                                                <i class="fe fe-alert-triangle fe-12 mr-4"></i>Agregar nuevo residente
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Residentes" asp-action="Index">
+                                                <i class="fe fe-eye fe-12 mr-4"></i>Ver residentes
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @*{{!-- Fin div de residentes --}}*@
+
+                                @*{{!-- inicio div de parqueaderos --}}*@
+
+
+                                <div style="display: flex; justify-content: space-between;">
+                                    <p class="mb-4">
+
+                                        <strong>PARQUEADEROS</strong>
+
+                                        @if (Model.ParqueaderosDeEspacios.Count() == 0)
+                                        {
+                                            <br />
+                                            <div class="col-12 mb-4">
+                                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                    No hay parqueaderos asociados a este apartamento para agregar uno <a asp-controller="ParqueaderosDeEspacios" asp-action="Create">Click Aqui </a> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div> <!-- /. col -->
+                                        }
+                                        else
+                                        {
+                                            @foreach (var parqueadero in Model.ParqueaderosDeEspacios)
+                                            {
+                                            <a style="text-decoration: none; color: inherit;" asp-controller="Parqueaderos" asp-action="Details" asp-route-id="@parqueadero.IdParqueadero">
+                                                <br> @parqueadero.IdParqueadero
+                                            </a>
+                                            <a style="text-decoration: none; color: inherit; margin-left: 20px;" asp-controller="ParqueaderosDeEspacios" asp-action="Delete" asp-route-id="@parqueadero.IdParqueaderosDeEspacios">
+                                                <i class="fe fe-delete fe-12 mr-4"></i>
+                                            </a>
+                                            }
+                                        }
+                                    </p>
+
+                                    <div class="file-action">
+                                        <button type="button" class="btn btn-link dropdown-toggle more-vertical p-0 text-muted mx-auto"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted sr-only">Action</span>
+                                        </button>
+                                        <div class="dropdown-menu m-2">
+                                            <a class="dropdown-item" asp-controller="ParqueaderosDeEspacios" asp-action="Create">
+                                                <i class="fe fe-alert-triangle fe-12 mr-4"></i>Agregar nuevo parqueadero
+                                            </a>
+                                            <a class="dropdown-item" asp-controller="Parqueaderos" asp-action="Index">
+                                                <i class="fe fe-eye fe-12 mr-4"></i>Ver registrosparqueaderos
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*{{!-- inicio div de vehiculos --}}*@
+
+                                @*<div style="display: flex;   justify-content: space-between;">
+                            <p class="mb-4">
+                            <strong>VEHICULOS</strong>
+                            <br />AME31G
+                            <br />ABL31G
+                            </p>
+
+                            <div class="file-action">
+                            <button type="button" class="btn btn-link dropdown-toggle more-vertical p-0 text-muted mx-auto"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="text-muted sr-only">Action</span>
+                            </button>
+                            <div class="dropdown-menu m-2">
+                            <a class="dropdown-item" href="vehiculos_crear">
+                            <i class="fe fe-box fe-12 mr-4"></i>Agregar
+                            nuevo vehiculo
+                            </a>
+                            <a class="dropdown-item" href="vehiculos">
+                            <i class="fe fe-eye fe-12 mr-4"></i>Ver
+                            vehiculos
+                            </a>
+
+                            </div>
+                            </div>
+                            </div>*@
+
+                                @*{{!-- fin div de vehiculos --}}*@
+                            </div>
+
+
+                        }
+
+
+                    </div>
+
+
+                </div> <!-- /.row -->
+                @*
+
+                {{!-- Inicio div de reservas --}}
+
+                *@
+
+                @*<p class="mb-4">
+                <strong>RESERVAS</strong>
+                </p>
+                <table class="table table-borderless table-striped">
+
+                <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Description</th>
+                <th scope="col" class="text-right">Rate</th>
+                <th scope="col" class="text-right">Hours</th>
+                <th scope="col" class="text-right">Ammout</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                <th scope="row">1</th>
+                <td>
+                Creative Design<br />
+                <span class="small text-muted">Design responsive website with existing prototype</span>
+                </td>
+                <td class="text-right">$15.00</td>
+                <td class="text-right">2</td>
+                <td class="text-right">$30.00</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>
+                Front-End Development<br />
+                <span class="small text-muted">Markup conversion and adding JavaScript</span>
+                </td>
+                <td class="text-right">$20.00</td>
+                <td class="text-right">5</td>
+                <td class="text-right">$100.00</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>
+                Back-End Development<br />
+                <span class="small text-muted">Database intergration with model functions</span>
+                </td>
+                <td class="text-right">$25.00</td>
+                <td class="text-right">7</td>
+                <td class="text-right">$155.00</td>
+                </tr>
+                </tbody>
+                </table>*@
+
+                @*
+
+                {{!-- Fin div de reservas --}}
+
+                *@
+
+                @*
+
+                {{!-- Inicio div de multas --}}
+
+                *@
+
+                @*<p class="mb-4">
+                <strong>MULTAS</strong>
+                </p>
+                <table class="table table-borderless table-striped">
+
+                <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Description</th>
+                <th scope="col" class="text-right">Rate</th>
+                <th scope="col" class="text-right">Hours</th>
+                <th scope="col" class="text-right">Ammout</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                <th scope="row">1</th>
+                <td>
+                Creative Design<br />
+                <span class="small text-muted">Design responsive website with existing prototype</span>
+                </td>
+                <td class="text-right">$15.00</td>
+                <td class="text-right">2</td>
+                <td class="text-right">$30.00</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>
+                Front-End Development<br />
+                <span class="small text-muted">Markup conversion and adding JavaScript</span>
+                </td>
+                <td class="text-right">$20.00</td>
+                <td class="text-right">5</td>
+                <td class="text-right">$100.00</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>
+                Back-End Development<br />
+                <span class="small text-muted">Database intergration with model functions</span>
+                </td>
+                <td class="text-right">$25.00</td>
+                <td class="text-right">7</td>
+                <td class="text-right">$155.00</td>
+                </tr>
+                </tbody>
+                </table>*@
+
+                @*
+
+                {{!-- Fin div de multas --}}
+
+                *@
+
+
+                @*<div class="row mt-5">
+                <div class="col-2 text-center">
+                <img src="./assets/images/qrcode.svg" class="navbar-brand-img brand-sm mx-auto my-4" alt="...">
+                </div>
+                <div class="col-md-5">
+                <p class="text-muted small">
+                <strong>Note :</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit
+                nisi sed sollicitudin pellentesque. Nunc posuere purus rhoncus pulvinar aliquam.
+                </p>
+                </div>
+                <div class="col-md-5">
+                <div class="text-right mr-2">
+                <p class="mb-2 h6">
+                <span class="text-muted">Subtotal : </span>
+                <strong>$285.00</strong>
+                </p>
+                <p class="mb-2 h6">
+                <span class="text-muted">VAT (10%) : </span>
+                <strong>$28.50</strong>
+                </p>
+                <p class="mb-2 h6">
+                <span class="text-muted">Total : </span>
+                <span>$313.50</span>
+                </p>
+                </div>
+                </div>
+                </div> <!-- /.row -->*@
+            </div> <!-- /.card-body -->
+        </div> <!-- /.card -->
+    </div> <!-- /.col-12 -->
+</div> <!-- .row -->
+</div> <!-- .container-fluid -->
+<div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="defaultModalLabel">Notifications</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="list-group list-group-flush my-n3">
+                    <div class="list-group-item bg-transparent">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <span class="fe fe-box fe-24"></span>
+                            </div>
+                            <div class="col">
+                                <small><strong>Package has uploaded successfull</strong></small>
+                                <div class="my-0 text-muted small">Package is zipped and uploaded</div>
+                                <small class="badge badge-pill badge-light text-muted">1m ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item bg-transparent">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <span class="fe fe-download fe-24"></span>
+                            </div>
+                            <div class="col">
+                                <small><strong>Widgets are updated successfull</strong></small>
+                                <div class="my-0 text-muted small">Just create new layout Index, form, table</div>
+                                <small class="badge badge-pill badge-light text-muted">2m ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item bg-transparent">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <span class="fe fe-inbox fe-24"></span>
+                            </div>
+                            <div class="col">
+                                <small><strong>Notifications have been sent</strong></small>
+                                <div class="my-0 text-muted small">Fusce dapibus, tellus ac cursus commodo</div>
+                                <small class="badge badge-pill badge-light text-muted">30m ago</small>
+                            </div>
+                        </div> <!-- / .row -->
+                    </div>
+                    <div class="list-group-item bg-transparent">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <span class="fe fe-link fe-24"></span>
+                            </div>
+                            <div class="col">
+                                <small><strong>Link was attached to menu</strong></small>
+                                <div class="my-0 text-muted small">New layout has been attached to the menu</div>
+                                <small class="badge badge-pill badge-light text-muted">1h ago</small>
+                            </div>
+                        </div>
+                    </div> <!-- / .row -->
+                </div> <!-- / .list-group -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear All</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="defaultModalLabel">Shortcuts</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body px-5">
+                <div class="row align-items-center">
+                    <div class="col-6 text-center">
+                        <div class="squircle bg-success justify-content-center">
+                            <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
+                        </div>
+                        <p>Control area</p>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div class="squircle bg-primary justify-content-center">
+                            <i class="fe fe-activity fe-32 align-self-center text-white"></i>
+                        </div>
+                        <p>Activity</p>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-6 text-center">
+                        <div class="squircle bg-primary justify-content-center">
+                            <i class="fe fe-droplet fe-32 align-self-center text-white"></i>
+                        </div>
+                        <p>Droplet</p>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div class="squircle bg-primary justify-content-center">
+                            <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
+                        </div>
+                        <p>Upload</p>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-6 text-center">
+                        <div class="squircle bg-primary justify-content-center">
+                            <i class="fe fe-users fe-32 align-self-center text-white"></i>
+                        </div>
+                        <p>Users</p>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div class="squircle bg-primary justify-content-center">
+                            <i class="fe fe-settings fe-32 align-self-center text-white"></i>
+                        </div>
+                        <p>Settings</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*
+
+<h1>Details</h1>
+
+<div>
+    <h4>Espacio</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoEspacio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TipoEspacio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreEspacio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NombreEspacio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Area)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Area)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Capacidad)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Capacidad)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EstadoEspacio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EstadoEspacio)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdEspacio">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+*@

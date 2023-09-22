@@ -1,0 +1,79 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<style>
+   
+    .register-container {
+       display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh; 
+    }
+
+    .register-form {
+        width: 550px; 
+        padding: 50px; 
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .register-logo {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .register-logo img {
+            width: 100px;
+            height: auto;
+        }
+</style>
+
+
+
+
+<div class="register-container">
+    <div class="col-md-4">
+        <div class="register-form">
+            <div class="register-logo">
+                <img src="https://i.ibb.co/KL47c1Y/Logo-Apptower.png" alt="APPTOWER Logo" />
+                <h2>APPTOWER</h2>
+            </div>
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+               @*  <h4>Nueva Cuenta</h4> *@
+                              <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <label asp-for="Input.Email">Correo</label>
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                 
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <label asp-for="Input.Password">Contraseña</label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Contraseña" />
+                   
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <label asp-for="Input.ConfirmPassword">Confirmar Contraseña</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Contraseña" />
+                    
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registrar</button>
+                
+                <p style="text-align:center">
+                    <br />
+                    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">¿Ya te encuentras registrado? Inicia Sesión</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

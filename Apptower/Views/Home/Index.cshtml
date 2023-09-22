@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<Residente>
+
+<div class="text-center">
+    <h1 class="display-4">Bienvenido a APPTOWER</h1>
+    <p>Este es el resumen de la gestion hasta el momento :)</p>
+</div>
+<div class="d-flex flex-wrap justify-content-center">
+    <div class="col-lg6 m-2">
+        <div class="card">
+            <div class="card-header"><b>Reporte de tipos de residentes</b></div>
+
+            <div class="card-body">
+                <canvas id="miGrafica" width="500" height="300"></canvas>
+            </div>
+
+            
+
+        </div>
+    </div>
+    <div class="col-lg6 m-2">
+        <div class="card">
+            <div class="card-header"><b>Reporte de tipos de residentes</b></div>
+
+            <div class="card-body">
+                <canvas id="miGrafica2" width="500" height="300"></canvas>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>
+@section scripts {
+    <script src="/js/Chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById('miGrafica');
+        var ctx2 = document.getElementById('miGrafica2');
+
+        var listaresidentes = @Html.Raw(Json.Serialize(Model));
+
+        var contadorArre = 0;
+        var contadorPropi = 0;
+
+        @foreach (var residente in Model)
+        {
+            if (residente.TipoResidente == "Arrendatario")
+            {
+                @:contadorArre++;
+            }
+            else if (residente.TipoResidente == "Propietario")
+            {
+                @:contadorPropi++;
+            }
+        }
+
+                var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Arrendatarios', 'Propietarios'],
+                    datasets: [{
+                        label: 'Cantidad',
+                        data: [contadorArre, contadorPropi],
+                        backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            gridLines: {
+                                display: true
+                            }
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                display: true
+                            }
+                        }]
+                    }
+                }
+            });
+        var myChart = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['Arrendatarios', 'Propietarios'],
+                datasets: [{
+                    data: [contadorArre, contadorPropi],
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                // Puedes personalizar opciones adicionales según tus necesidades
+            }
+        });
+
+    </script>
+}

@@ -1,0 +1,154 @@
+﻿@model Apptower.Models.Usuario
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="modal-body p-4">
+                            <h2>Crear Usuario</h2>
+
+                            <form method="post" asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="TipoDocumento" class="control-label">Tipo de Documento</label>
+                                            <select asp-for="TipoDocumento" class="form-control">
+                                                <option value="CC">CC</option>
+                                                <option value="CE">CE</option>
+                                            </select>
+                                            <span asp-validation-for="TipoDocumento" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Documento" class="control-label">Documento</label>
+                                            <input asp-for="Documento" class="form-control" required>
+                                            <span asp-validation-for="Documento" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Nombre" class="control-label">Nombre</label>
+                                            <input asp-for="Nombre" class="form-control" required>
+                                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Apellido" class="control-label">Apellido</label>
+                                            <input asp-for="Apellido" class="form-control" required>
+                                            <span asp-validation-for="Apellido" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Repite el patrón para otros campos -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Correo" class="control-label">Correo</label>
+                                            <input asp-for="Correo" class="form-control" required>
+                                            <span asp-validation-for="Correo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Telefono" class="control-label">Teléfono</label>
+                                            <input asp-for="Telefono" class="form-control" required>
+                                            <span asp-validation-for="Telefono" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Contrasena" class="control-label">Contraseña</label>
+                                            <input asp-for="Contrasena" id="Contrasena" type="password" class="form-control" required>
+                                            <span asp-validation-for="Contrasena" class="text-danger"></span>
+                                            <span class="text-danger" id="confirmarContrasenaError"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Confirmar Contraseña</label>
+                                            <input id="ConfirmarContrasena" type="password" class="form-control" required>
+                                            <span class="text-danger" id="confirmarContrasenaError"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="IdRol" class="control-label">Rol</label>
+                                            <select asp-for="IdRol" class="form-control" id="IdRol">
+                                                <option value="1">Administrador</option>
+                                                <option value="2">Vigilante</option>
+                                                <option value="3">Residente</option>
+                                            </select>
+                                            <span asp-validation-for="IdRol" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <!-- Repite el patrón para otros campos -->
+
+                                <div class="form-group">
+                                    <input type="submit" value="Registrar" class="btn btn-primary btn-block" />
+                                </div>
+                                <div class="form-group">
+                                    <a asp-action="Index" class="btn btn-light btn-block">Volver a la lista</a>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / .card -->
+@*
+                @section Script{
+
+                @{ <partial name="_Valo "> }
+                }*@
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('registroForm');
+            form.addEventListener('submit', function (event) {
+                const contrasena = document.getElementById('Contrasena').value;
+                const confirmarContrasena = document.getElementById('ConfirmarContrasena').value;
+                const confirmarContrasenaError = document.getElementById('confirmarContrasenaError');
+
+                if (contrasena !== confirmarContrasena) {
+                    confirmarContrasenaError.textContent = 'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.';
+                    event.preventDefault(); // Solo previene el envío si las contraseñas no coinciden
+                } else {
+                    confirmarContrasenaError.textContent = ''; // Borra el mensaje de error si las contraseñas coinciden
+                }
+            });
+        });
+    </script>
+
+
+
+                }

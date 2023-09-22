@@ -1,0 +1,72 @@
+﻿@model Apptower.Models.ParqueaderosDeEspacio
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Boton"] = "Agregar parqueadero al espacio";
+}
+
+<div class="col-md-6 mb-4 mx-auto">
+    <!-- Agregamos la clase mx-auto para centrar el contenido -->
+    <div class="card shadow">
+        <div class="card-body text-center">
+            <!-- Agregamos la clase text-center para centrar el texto -->
+            <form method="post" asp-action="Create">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdEspacioNavigation" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="IdEspacio" for="custom-select">Apartamento</label>
+                    <select asp-for="IdEspacio" asp-items="ViewBag.IdEspacio" class="custom-select" id="custom-select">
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="IdParqueadero" for="custom-select">Apartamento</label>
+                    <select asp-for="IdParqueadero" asp-items="ViewBag.IdParqueadero" class="custom-select" id="custom-select">
+                    </select>
+                </div>
+                <input type="submit" class="btn mb-2 btn-primary btn-block" value="@ViewData["Boton"] ">
+                <span class="fe mr-2"></span>
+                </input>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@*
+<h1>Create</h1>
+
+<h4>ParqueaderosDeEspacio</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdEspacioNavigation" />
+
+            <div class="form-group">
+                <label asp-for="IdEspacio" class="control-label"></label>
+                <select asp-for="IdEspacio" class="form-control"  asp-items="ViewBag.IdEspacio"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdParqueadero" class="control-label"></label>
+                <select asp-for="IdParqueadero" class ="form-control" asp-items="ViewBag.IdParqueadero"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+*@

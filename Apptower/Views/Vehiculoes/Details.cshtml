@@ -1,0 +1,45 @@
+﻿@model Apptower.Models.Vehiculo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <div class="card">
+        <div class="card-header">
+            <h4>Vehiculo @Html.DisplayFor(model => model.Placa)</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    <label>Placa:</label>
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Placa)
+                </dd>
+                <dt class="col-sm-2">
+                    <label>Usuario: </label>
+
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TipoUsuarioVehiculo)
+                </dd>
+                <dt class="col-sm-2">
+                    <label>Nombre: </label>
+
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.NombrePropietarioVehiculo)
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@Model?.IdVehiculo">Editar</a> |
+            <a class="btn btn-light" asp-action="Index">Cancelar</a>
+        </div>
+
+    </div>
+</div>
+<div>
+</div>

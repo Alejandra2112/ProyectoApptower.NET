@@ -1,0 +1,334 @@
+﻿@model IEnumerable<Apptower.Models.Residente>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="ml-3">Residentes</h1>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas eliminar este residente?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <form method="post">
+                    <input type="submit" value="Eliminar" class="btn btn-danger" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="col pr-4 pl-4">
+
+                <div class="toolbar row mb-5">
+                    <div class="d-flex flex-column align-content-between">
+                        <form class="form-inline" asp-controller="Residentes" asp-action="Index">
+                            <div class="form-row">
+                                <div class="form-group row-auto">
+                                    <label for="search" class="sr-only">Buscar</label>
+                                    <input type="text" class="form-control" name="buscar" value="" placeholder="Buscar">
+                                    <input type="submit" class="btn btn-secondary" value="Buscar">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col ml-auto">
+                        <div class="dropdown float-right">
+                            <a asp-controller="Residentes" asp-action="Create">
+                                <button class="btn btn-primary float-right ml-3" type="button">Crear Residente</button>
+                            </a>
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fe fe-download fe-16"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="actionMenuButton">
+                                <a class="dropdown-item" href="descargar_excel_usuarios">Excel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /.col-12 -->
+    </div> <!-- /.row -->
+
+    <div class="row border border-5 border-top border-gray shadow-sm p-2">
+
+
+        @foreach (var item in Model)
+        {
+
+            <div class="col-md-3">
+                <div class="card shadow mb-4">
+
+                    <a style="text-decoration: none; color: inherit;" asp-action="Details" asp-route-id="@item.IdResidente">
+
+                        <div class="card-body text-center">
+                            <div class="card-text my-2">
+                                <strong class="card-title my-0">@item.NombreResidente @item.ApellidoResidente</strong>
+                                <p class="text-muted">Espacio: @item.IdEspacio</p>
+                                <p class="mb-0">Tipo: @(item.TipoResidente) </p>
+                                <p class="mb-0">@(item.ResidenciaActual == true ? "Reside" : "No reside") </p>
+                                @*                                <p class="mb-0"> @(item.TipoEspacio != "APARTAMENTO" ? "" : $"residentes: 6") </p>
+                            *@@*                                <p class="mb-0">@(item.TipoEspacio != "APARTAMENTO" ? "" : $"Propietarios: 2") </p>
+                            *@                                @* <p class="mb-0">@(item.TipoEspacio != "APARTAMENTO" || item.ParqueaderosDeEspacios.Count() == 0 ? "" : $"Parqueadero: {item.ParqueaderosDeEspacios.Count()}") </p> *@
+                                @*                                <p class="mb-0">@(item.TipoEspacio != "APARTAMENTO" ? "" : $"Visitantas: 6")</p>
+                            *@@*                                <p class="text-muted"><strong class="text-danger">Multa: 2</strong></p>
+                            *@
+                            </div>
+                        </div> <!-- ./card-text -->
+                    </a>
+
+
+
+
+
+                    <div class="card-footer">
+                        <div class="row align-items-center justify-content-between">
+
+                            @*Estado del espacio*@
+
+                            <div class="col-auto">
+                                <small>
+                                    <span class="dot dot-lg @(item.EstadoResidente == "Activo"? "bg-success" : item.EstadoResidente == "Inactivo"? "bg-danger" : "bg-danger") mr-1"></span> @item.EstadoResidente
+                                </small>
+                            </div>
+                            <div class="col-auto">
+                                <div class="file-action">
+                                    <button type="button" class="btn btn-link dropdown-toggle more-vertical p-0 text-muted mx-auto"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="text-muted sr-only">Action</span>
+                                    </button>
+                                    <div class="dropdown-menu m-2">
+
+                                        <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.IdResidente">
+                                            <i class="fe fe-edit fe-12 mr-4"></i>Editar
+                                        </a>
+                                        <button class="dropdown-item delete-user" data-toggle="modal" data-target="#deleteModal" data-user-id="@item.IdResidente">
+                                            <i class="fe fe-delete fe-12 mr-4"></i>Eliminar
+                                        </button>
+                                            
+                                        
+                                            
+                                     
+                                            
+                                        <a class="dropdown-item" asp-action="Details" asp-route-id="@item.IdResidente">
+                                            <i class="fe fe-info fe-12 mr-4"></i>Detalles
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.card-footer -->
+                </div>
+            </div>
+        }
+
+
+    </div> <!-- /.row -->
+
+    <div class="col-md-9">
+        <!-- Contenido adicional -->
+    </div> <!-- /.col -->
+
+    <nav aria-label="Table Paging" class="my-3">
+        <ul class="pagination justify-content-end mb-0">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+</div> <!-- /.container-fluid -->
+@section Scripts{
+
+    <script>
+        $(function () {
+            $('.delete-user').click(function () {
+                var userId = $(this).data('user-id');
+                $('#deleteModal form').attr('action', '/Residentes/Delete/' + userId);
+            });
+        });
+    </script>
+}
+
+
+@* <div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-md-12 my-4">
+                    <h2 class="h4 mb-1"></h2>
+                    <p class="mb-4">Vista de los residentes existentes</p>
+
+
+                    @{
+                        if (TempData["mensaje"] != null)
+                        {
+                            <div class="col-12 mb-4">
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong>¡Hecho</strong> @TempData["mensaje"] <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="toolbar row mb-3">
+                                <div class="col">
+                                    <form class="form-inline" asp-controller="Residentes" asp-action="Index">
+                                        <div class="form-row">
+                                            <div class="form-group col-auto">
+                                                <label for="search" class="sr-only">Buscar</label>
+                                                <input type="text" class="form-control" name="buscar" value="" placeholder="Buscar">
+                                                <input type="submit" class="btn btn-secondary" value="Buscar">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="col ml-auto">
+                                    <div class="dropdown float-right">
+                                        <a asp-controller="Residentes" asp-action="Create">
+                                            <button class="btn btn-primary float-right ml-3" type="button">Crear Residente</button>
+                                        </a>
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fe fe-download fe-16"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="actionMenuButton">
+                                            <a class="dropdown-item" href="descargar_excel_usuarios">Excel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tabla de propietarios -->
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo de Documento</th>
+                                        <th>Documento</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Edad</th>
+                                        <th>Correo</th>
+                                        <th>Telefono</th>
+                                        <th>Tipo de residente</th>
+                                        <th>Residencia</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TipoDocumentoResidente)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NumeroDocumentoResidente)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NombreResidente)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ApellidoResidente)
+                                            </td>
+                                            <td>
+                                                @{
+                                                    if (item.FechaNacimientoResidente != null)
+                                                    {
+                                                        var today = DateTime.Today;
+                                                        var age = today.Year - item.FechaNacimientoResidente.Year;
+                                                        if (item.FechaNacimientoResidente.Date > today.AddYears(-age)) age--;
+                                                        @age
+                                                    }
+                                                }
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CorreoResidente)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TelefonoResidente)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TipoResidente)
+                                            </td>
+                                            <td>
+                                                @{
+                                                    if (item.ResidenciaActual != null)
+                                                    {
+
+                                                        var age = item.ResidenciaActual == true ? "Reside" : "No reside";
+                                                        @age
+                                                    }
+                                                }
+                                            </td>
+                                            
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EstadoResidente)
+                                            </td>
+
+                                            <td class="d-flex justify-content-around">
+                                                <a asp-action="Edit" asp-route-id="@item.IdResidente">Edit</a> |
+                                                <a asp-action="Details" asp-route-id="@item.IdResidente">Details</a> |
+                                                <a href="#" class="eliminar" data-id="@item.IdResidente">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const eliminarLinks = document.querySelectorAll(".eliminar");
+        eliminarLinks.forEach(function (link) {
+            link.addEventListener("click", function (e) {
+                e.preventDefault();
+                const id = link.getAttribute("data-id");
+                const confirmar = confirm("¿Está seguro de que desea eliminar este registro?");
+                if (confirmar) {
+                    // Realiza la solicitud DELETE
+                    fetch(`/Residentes/Delete/${id}`, {
+                        method: "DELETE"
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                // Actualiza la página o realiza cualquier otra acción necesaria
+                                location.reload(); // Por ejemplo, recarga la página
+                            } else {
+                                console.error("Error al eliminar el registro.");
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error al eliminar el registro: " + error);
+                        });
+                }
+            });
+        });
+    });
+</script> *@
+

@@ -1,0 +1,89 @@
+﻿@model Apptower.Models.Espacio
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Editar espacios";
+    ViewData["Boton"] = "Editar espacio";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11">
+            <h2 class="page-title">@ViewData["Title"]</h2>
+            <div class="card shadow mb-4">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="modal-body p-4">
+
+                            <form asp-action="Edit">
+
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="IdEspacio" />
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="TipoEspacio">Tipo espacio</label>
+                                    <select asp-for="TipoEspacio" class="form-control">
+                                        <option value="APARTAMENTO">APARTAMENTO</option>
+                                        <option value="SALON SOCIAL">SALON SOCIAL</option>
+                                        <option value="ZONA HUMEDA">ZONA HUMEDA</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="NombreEspacio">Nombre espacio</label>
+                                    <input type="text" asp-for="NombreEspacio" class="form-control" required>
+                                    <span asp-validation-for="NombreEspacio"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="Area">Area</label>
+                                    <input type="number" asp-for="Area" class="form-control" min="0">
+                                    <span asp-validation-for="Area"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="Area">Capacidad</label>
+                                    <input type="number" asp-for="Capacidad" class="form-control" min="0" step="true">
+                                    <span asp-validation-for="Capacidad"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="EstadoEspacio">Estado</label>
+                                    <select asp-for="EstadoEspacio" class="form-control">
+                                        <option value="ACTIVO">ACTIVO</option>
+                                        <option value="INACTIVO">INACTIVO</option>
+                                    </select>
+                                </div>
+
+                                <input type="submit" class="btn mb-2 btn-primary btn-block" value="@ViewData["Boton"] ">
+                                <span class="fe mr-2"></span>
+                                </input>
+                                <a asp-controller="Espacios" asp-action="Index">
+                                    <button id="regresar" type="button"
+                                            class="btn mb-2 btn-light btn-block">
+                                        <span class="fe mr-2"></span>Regresar
+                                    </button>
+                                </a>
+
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div> <!-- / .card -->
+                @*
+                @section Script{
+
+                @{ <partial name="_Valo "> }
+                }*@
+
+                @section Scripts {
+                    @{
+                        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                    }
+                }
+
+

@@ -1,0 +1,161 @@
+﻿@model IEnumerable<Apptower.Models.Propietario>
+
+@{
+    ViewData["Title"] = "Propietarios";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Opcional, si deseas usar el diseño compartido
+}
+
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas eliminar este propietario?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <form method="post">
+                    <input type="submit" value="Eliminar" class="btn btn-danger" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-md-12 my-4">
+                    <h2 class="h4 mb-1">Propietarios</h2>
+                    <p class="mb-4">Vista de los Propietarios existentes</p>
+
+
+                    @{
+                        if (TempData["mensaje"] != null)
+                        {
+                            <div class="col-12 mb-4">
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong>¡Hecho</strong> @TempData["mensaje"] <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="toolbar row mb-3">
+                                <div class="col">
+                                    <form class="form-inline" asp-controller="Propietarios" asp-action="Index">
+                                        <div class="form-row">
+                                            <div class="form-group col-auto">
+                                                <label for="search" class="sr-only">Buscar</label>
+                                                <input type="text" class="form-control" name="buscar" value="" placeholder="Buscar">
+                                                <button type="submit" class="btn btn-secondary" style="border: none; background-color: transparent; outline: none; border-bottom: 0;">
+                                                    <span class="fe fe-24 fe-search" style="color: gray;"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="col ml-auto">
+                                    <div class="dropdown float-right">
+                                        <a asp-controller="Propietarios" asp-action="Create">
+                                            <button class="btn btn-primary float-right ml-3" type="button">Crear Propietario</button>
+                                        </a>
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fe fe-download fe-16"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="actionMenuButton">
+                                            <a class="dropdown-item" href="descargar_excel_usuarios">Excel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tabla de propietarios -->
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo de Documento</th>
+                                        <th>Documento</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Edad</th>
+                                        <th>Correo</th>
+                                        <th>Teléfono</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.TipoDocumentoPropietario)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.NumeroDocumentoPropietario)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.NombrePropietario)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.ApellidoPropietario)</td>
+                                            <td>
+                                                @{
+                                                    if (item.FechaNacimientoPropietario != null)
+                                                    {
+                                                        var today = DateTime.Today;
+                                                        var age = today.Year - item.FechaNacimientoPropietario.Year;
+                                                        if (item.FechaNacimientoPropietario.Date > today.AddYears(-age)) age--;
+                                                        @age
+                                                    }
+                                                }
+                                            </td>
+                                            <td>@Html.DisplayFor(modelItem => item.CorreoPropietario)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.TelefonoPropietario)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.EstadoPropietario)</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                   <button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fe fe-more-vertical fe-24"></i>
+                                                </button>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="actionMenuButton">
+                                                        <a asp-action="Edit" asp-route-id="@item.IdPropietario" class="dropdown-item">Editar</a>
+                                                        <a asp-action="Details" asp-route-id="@item.IdPropietario" class="dropdown-item">Detalles</a>
+                                                        <button class="dropdown-item delete-user" data-toggle="modal" data-target="#deleteModal" data-user-id="@item.IdPropietario">Eliminar</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('.delete-user').click(function () {
+                var userId = $(this).data('user-id');
+                $('#deleteModal form').attr('action', '/Propietarios/Delete/' + userId);
+            });
+        });
+    </script>
+}

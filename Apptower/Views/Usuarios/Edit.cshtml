@@ -1,0 +1,153 @@
+﻿    @model Apptower.Models.Usuario
+
+    @{
+
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-11">
+            
+                <div class="card shadow mb-4">
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="modal-body p-4">
+                                <h2>Editar Usuario</h2>
+                           
+                                <form asp-action="Edit" method="post">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input type="hidden" asp-for="IdUsuario" />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="TipoDocumento" class="control-label">Tipo de Documento</label>
+                                                <select asp-for="TipoDocumento" class="form-control">
+                                                    <option value="CC">CC</option>
+                                                    <option value="CE">CE</option>
+                                                </select>
+                                                <span asp-validation-for="TipoDocumento" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Documento" class="control-label">Documento</label>
+                                                <input asp-for="Documento" class="form-control" required>
+                                                <span asp-validation-for="Documento" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Nombre" class="control-label">Nombre</label>
+                                                <input asp-for="Nombre" class="form-control" required>
+                                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Apellido" class="control-label">Apellido</label>
+                                                <input asp-for="Apellido" class="form-control" required>
+                                                <span asp-validation-for="Apellido" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Repite el patrón para otros campos -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Correo" class="control-label">Correo</label>
+                                                <input asp-for="Correo" class="form-control" required>
+                                                <span asp-validation-for="Correo" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Telefono" class="control-label">Teléfono</label>
+                                                <input asp-for="Telefono" class="form-control" required>
+                                                <span asp-validation-for="Telefono" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="IdRol" class="control-label">Rol</label>
+                                                <select asp-for="IdRol" class="form-control" id="IdRol">
+                                                    <option value="1">Administrador</option>
+                                                    <option value="2">Vigilante</option>
+                                                    <option value="3">Residente</option>
+                                                </select>
+                                                <span asp-validation-for="IdRol" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="FechaCreacion" class="control-label">Fecha de Creación</label>
+                                            <input asp-for="FechaCreacion" class="form-control" readonly>
+                                        </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Estado" class="control-label">Estado</label>
+                                                <select asp-for="Estado" class="form-control">
+                                                    <option value="ACTIVO">Activo</option>
+                                                    <option value="INACTIVO">Inactivo</option>
+                                                </select>
+                                                <span asp-validation-for="Estado" class="text-danger"></span>
+                                            </div>
+                                      
+
+                                        </div>
+                                        <div class="col-md-6">
+                                           
+
+                                        </div>
+
+                                    </div>
+                                    <!-- Repite el patrón para otros campos -->
+
+                                    <div class="form-group">
+                                        <input type="submit" value="Guardar Cambios" class="btn btn-primary btn-block" />
+                                    </div>
+                                    <div class="form-group">
+                                        <a asp-action="Index" class="btn btn-light btn-block">Volver a la lista</a>
+                                    </div>
+
+                               
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div> <!-- / .card -->
+                    @*
+                    @section Script{
+
+                    @{ <partial name="_Valo "> }
+                    }*@
+
+                    @section Scripts {
+                        @{
+                            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                        }
+                    }
+
+
+
+
+
+
+
+               

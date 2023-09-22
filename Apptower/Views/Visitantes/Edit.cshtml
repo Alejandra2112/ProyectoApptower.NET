@@ -1,0 +1,67 @@
+﻿@model Apptower.Models.Visitante
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar Visitante</h1>
+
+<h4>Visitante</h4>
+<hr />
+<div class="container w-50">
+    <div class="card shadow">
+        <div class="row justify-content-center">
+            <div class="col-md-6 my-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdVisitante" />
+            <div class="form-group d-none">
+                <label asp-for="TipoDocumentoVisitante" class="control-label"></label>
+                <input asp-for="TipoDocumentoVisitante" class="form-control" />
+                <span asp-validation-for="TipoDocumentoVisitante" class="text-danger"></span>
+            </div>
+            <div class="form-group d-none">
+                <label asp-for="NumeroDocumentoVisitante" class="control-label"></label>
+                <input asp-for="NumeroDocumentoVisitante" class="form-control" />
+                <span asp-validation-for="NumeroDocumentoVisitante" class="text-danger"></span>
+            </div>
+            <div class="form-group d-none">
+                <label asp-for="NombreVisitante" class="control-label"></label>
+                <input asp-for="NombreVisitante" class="form-control" />
+                <span asp-validation-for="NombreVisitante" class="text-danger"></span>
+            </div>
+            <div class="form-group d-none">
+                <label asp-for="ApellidoVisitante" class="control-label"></label>
+                <input asp-for="ApellidoVisitante" class="form-control" />
+                <span asp-validation-for="ApellidoVisitante" class="text-danger"></span>
+            </div>
+            <div class="form-group d-none">
+                <label asp-for="GeneroVisitante" class="control-label"></label>
+                <input asp-for="GeneroVisitante" class="form-control" />
+                <span asp-validation-for="GeneroVisitante" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PermisoVisitante" class="control-label">Permiso</label>
+                <select asp-for="PermisoVisitante" class="form-control" >
+                    <option value="Permitido">Permitido</option>
+                    <option value="Denegado">Denegado</option>
+                </select>
+                <span asp-validation-for="PermisoVisitante" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" /> |
+                <a asp-action="Index">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+    </div>
+</div>
+
+<div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

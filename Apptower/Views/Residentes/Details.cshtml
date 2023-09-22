@@ -1,0 +1,208 @@
+﻿@model Apptower.Models.Residente
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Residente</h4>
+    <hr />
+    <div class="container card shadow">
+        <div class="row">
+            <div class="col-md-6">
+                <dl class="row">
+                    <dt class="col-sm-4">
+                        Tipo de documento:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.TipoDocumentoResidente)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Numero de documento:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.NumeroDocumentoResidente)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Nombre:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.NombreResidente)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Apellido:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.ApellidoResidente)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Edad:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @{
+                            var fechaNacimiento = Model.FechaNacimientoResidente;
+                            var edad = DateTime.Now.Year - fechaNacimiento.Year;
+                            if (DateTime.Now.DayOfYear < fechaNacimiento.DayOfYear)
+                            {
+                                edad--;
+                            }
+                        }
+                        @edad años
+                    </dd>
+                    <dt class="col-sm-4">
+                        Correo:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.CorreoResidente)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Telefono:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.TelefonoResidente)
+                    </dd>
+                    <!-- Agrega aquí más términos y definiciones -->
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <dl class="row">
+                    <dt class="col-sm-4">
+                        Tipo de residente:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.TipoResidente)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Reside actualmente:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @{
+                            var reside = Model.ResidenciaActual;
+                            var respuesta = reside == true ? "Si" : "No";
+                        }
+                        @respuesta
+                        
+                    </dd>
+                    <dt class="col-sm-4">
+                        Espacio:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.IdEspacio)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Fecha de inicio:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.FechaInicioResidencia)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Fecha final:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @{
+                            var fechaFinResidencia = Model.FechaFinResidencia;
+                            var fechaFormateada = fechaFinResidencia.HasValue ? fechaFinResidencia.Value.ToString("dd/MM/yyyy") : "No registra";
+                        }
+                        @fechaFormateada
+                    </dd>
+                    <dt class="col-sm-4">
+                        Estado:
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.EstadoResidente)
+                    </dd>
+                    <!-- Agrega aquí más términos y definiciones -->
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    @* <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoDocumentoResidente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TipoDocumentoResidente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumeroDocumentoResidente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumeroDocumentoResidente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreResidente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NombreResidente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ApellidoResidente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ApellidoResidente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaNacimientoResidente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaNacimientoResidente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CorreoResidente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CorreoResidente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TelefonoResidente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TelefonoResidente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoResidente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TipoResidente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ResidenciaActual)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ResidenciaActual)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaInicioResidencia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaInicioResidencia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaFinResidencia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaFinResidencia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EstadoResidente)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EstadoResidente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdEspacioNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdEspacioNavigation.IdEspacio)
+        </dd>
+    </dl> *@
+</div>
+<div class="d-flex justify-content-center mt-2">
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model?.IdResidente">Editar</a> |
+    <a class="btn btn-dark" asp-action="Index">Volver</a>
+</div>
+

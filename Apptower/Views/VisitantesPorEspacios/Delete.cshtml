@@ -1,0 +1,59 @@
+﻿@model Apptower.Models.VisitantesPorEspacio
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<body class="light">
+    <div class="wrapper vh-100">
+        <div class="align-items-center h-100 d-flex w-50 mx-auto">
+            <div class="mx-auto text-center">
+                <h3 class="display-1 m-0 font-weight-bolder text-muted" style="font-size:80px;">¿Seguro?</h3>
+                <h4 class="mb-1 text-muted font-weight-bold">¿Quieres desagregar a @Model.IdVisitanteNavigation.NombreVisitante del apartamento @Model.IdEspacioNavigation.NombreEspacio?</h4>
+                <p class="mb-3 text-muted">
+                    @Model.IdVisitanteNavigation.NombreVisitante.ToLower() ya no estara asociado al apartamento @Model.IdEspacioNavigation.NombreEspacio
+                </p>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="IdVisitantePorEspacio" />
+                    <input type="submit" value="Eliminar definitivamente" class="btn btn-lg btn-danger px-5" />
+                    <a asp-controller="Espacios" asp-action="Index" class="btn btn-lg btn-primary px-5">Regresar</a>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</body>
+@*
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>VisitantesPorEspacio</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdEspacioNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdEspacioNavigation.IdEspacio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdVisitanteNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdVisitanteNavigation.ApellidoVisitante)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdVisitantePorEspacio" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
+*@

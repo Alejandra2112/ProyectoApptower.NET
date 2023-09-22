@@ -1,0 +1,29 @@
+﻿@model Apptower.Models.Parqueadero
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body class="light">
+    <div class="wrapper vh-100">
+        <div class="align-items-center h-100 d-flex w-50 mx-auto">
+            <div class="mx-auto text-center">
+                <h3 class="display-1 m-0 font-weight-bolder text-muted" style="font-size:80px;">¿Seguro?</h3>
+                <h4 class="mb-1 text-muted font-weight-bold">¿Quieres eliminar este parqueadero del sistema?</h4>
+                <p class="mb-3 text-muted">
+                    Vas a eliminar el parqueadero @Model.NombreParqueadero de @Model.TipoParqueadero
+                    si haces esto la relaccion con espacios y reservas tambien se eliminaran
+                </p>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="IdParqueadero" />
+                    <input type="submit" value="Eliminar definitivamente" class="btn btn-lg btn-danger px-5" />
+                    <a asp-action="Index" class="btn btn-lg btn-primary px-5">Regresar</a>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</body>

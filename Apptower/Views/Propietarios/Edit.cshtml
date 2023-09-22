@@ -1,0 +1,117 @@
+﻿@model Apptower.Models.Propietario
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11">
+
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="modal-body p-4">
+                            <h2>Editar Propietario</h2>
+
+                            <form asp-action="Edit" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="IdPropietario" />
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="TipoDocumentoPropietario" class="control-label">Tipo de Documento</label>
+                                            <select asp-for="TipoDocumentoPropietario" class="form-control">
+                                                <option value="CC">CC</option>
+                                                <option value="CE">CE</option>
+                                            </select>
+                                            <span asp-validation-for="TipoDocumentoPropietario" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="NumeroDocumentoPropietario" class="control-label">Documento</label>
+                                            <input asp-for="NumeroDocumentoPropietario" class="form-control" />
+                                            <span asp-validation-for="NumeroDocumentoPropietario" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="NombrePropietario" class="control-label">Nombre</label>
+                                            <input asp-for="NombrePropietario" class="form-control" />
+                                            <span asp-validation-for="NombrePropietario" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label asp-for="ApellidoPropietario" class="control-label">Apellido</label>
+                                            <input asp-for="ApellidoPropietario" class="form-control" />
+                                            <span asp-validation-for="ApellidoPropietario" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="CorreoPropietario" class="control-label">Correo</label>
+                                            <input asp-for="CorreoPropietario" class="form-control" />
+                                            <span asp-validation-for="CorreoPropietario" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="TelefonoPropietario" class="control-label">Teléfono</label>
+                                            <input asp-for="TelefonoPropietario" class="form-control" />
+                                            <span asp-validation-for="TelefonoPropietario" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="FechaNacimientoPropietario" class="control-label">Fecha de Nacimiento</label>
+                                            <input asp-for="FechaNacimientoPropietario" class="form-control" />
+                                            <span asp-validation-for="FechaNacimientoPropietario" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="EstadoPropietario" class="control-label">Estado</label>
+                                            <select asp-for="EstadoPropietario" class="form-control">
+                                                <option value="ACTIVO">Activo</option>
+                                                <option value="INACTIVO">Inactivo</option>
+                                            </select>
+                                            <span asp-validation-for="EstadoPropietario" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Guardar Cambios" class="btn btn-primary btn-block" />
+                                </div>
+                                <div class="form-group">
+                                    <a asp-action="Index" class="btn btn-light btn-block">Volver a la lista</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

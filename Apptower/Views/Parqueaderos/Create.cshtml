@@ -1,0 +1,79 @@
+﻿@model Apptower.Models.Parqueadero;
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Agregar nuevo parqueadero";
+    ViewData["Boton"] = "Crear parqueadero";
+}
+
+
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11">
+            <h2 class="page-title">@ViewData["Title"]</h2>
+            <div class="card shadow mb-4">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="modal-body p-4">
+
+                            <form method="post" asp-action="Create">
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="TipoParqueadero">Tipo parqueadero</label>
+                                    <select asp-for="TipoParqueadero" class="form-control">
+                                        <option value="RESIDENTES">RESIDENTES</option>
+                                        <option value="VISITANTES">VISITANTES</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="NombreParqueadero">Nombre parqueadero</label>
+                                    <input type="text" asp-for="NombreParqueadero" class="form-control" required>
+                                    <span asp-validation-for="NombreParqueadero"></span>
+                                </div>
+
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="EstadoParqueadero">Estado</label>
+                                    <select asp-for="EstadoParqueadero" class="form-control">
+                                        <option value="ACTIVO">ACTIVO</option>
+                                        <option value="INACTIVO">INACTIVO</option>
+                                    </select>
+                                </div>
+
+                                <input type="submit" class="btn mb-2 btn-primary btn-block" value="@ViewData["Boton"] ">
+                                <span class="fe mr-2"></span>
+                                </input>
+                                <a asp-controller="Parqueaderos" asp-action="Index">
+                                    <button id="regresar" type="button"
+                                            class="btn mb-2 btn-light btn-block">
+                                        <span class="fe mr-2"></span>Regresar
+                                    </button>
+                                </a>
+
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div> <!-- / .card -->
+                @*
+                @section Script{
+
+                @{ <partial name="_Valo "> }
+                }*@
+
+                @section Scripts {
+                    @{
+                        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                    }
+                }
+
+
+
+
+

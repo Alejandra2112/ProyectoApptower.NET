@@ -1,0 +1,53 @@
+﻿@model Apptower.Models.Reserva
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Seguro que quieres eliminar esta reserva?</h1>
+
+<h4 class="row justify-content-center">Reserva</h4>
+<hr />
+<div class="card">
+
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TipoReserva)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TipoReserva)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FechaReserva)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FechaReserva)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EspacioReserva)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EspacioReserva)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CantidadPersonas)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CantidadPersonas)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IdUsuarioNavigation)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IdUsuarioNavigation.Nombre)
+            </dd>
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="IdReserva" />
+                <input type="submit" value="Eliminar" class="btn btn-outline-danger" /> |
+                <a asp-action="Index" class="btn btn-light">Cancelar</a>
+            </form>
+        </dl>
+    </div>
+
+</div>

@@ -1,0 +1,61 @@
+﻿@model Apptower.Models.Visitante
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Detalles del registro</h1>
+
+    <h4>Visitante</h4>
+<div class="card shadow w-50 d-flex justify-content-center">
+    <hr />
+    <div class="container">
+        <div class="row justify-content-center">
+            <dl class="col-md-4">
+                <dt>
+                    Tipo de documento:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TipoDocumentoVisitante)
+                </dd>
+                <dt>
+                    Numero de documento:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NumeroDocumentoVisitante)
+                </dd>
+                <dt>
+                    Nombre:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NombreVisitante)
+                </dd>
+                <dt>
+                    Apellido:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ApellidoVisitante)
+                </dd>
+                <dt>
+                    Genero:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.GeneroVisitante)
+                </dd>
+                <dt>
+                    Permiso:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.PermisoVisitante)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+</div>
+<div class="pl-2">
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model?.IdVisitante">Editar</a> |
+    <a class="btn btn-success" asp-action="Index">Volver</a>
+</div>
+</>
